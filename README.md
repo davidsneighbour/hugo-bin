@@ -14,7 +14,7 @@ git clone https://github.com/dnb-org/dnb-hugo-bin tmp.bin && mkdir -p bin && cp 
 
 ## Update
 
-Run `bin/self/update`. Then check with `git diff` what's changed (or subscribe to releases on GitHub).
+Run `bin/self/update`. Then check with `git diff` what's changed (or subscribe to [releases on GitHub](https://github.com/dnb-org/dnb-hugo-bin/releases)).
 
 ## Configuration
 

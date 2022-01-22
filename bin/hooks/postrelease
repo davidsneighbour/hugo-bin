@@ -13,7 +13,7 @@ done
 
 # adding data directory for new build information
 git add data/dnb/debug/build.json
-git commit --amend --no-edit
+git commit --signoff --amend --no-edit
 
 # push release to GitHub
 git push --follow-tags origin main
