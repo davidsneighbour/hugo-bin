@@ -53,7 +53,7 @@ Run `bin/self/update`. Then check with `git diff` what's changed (or subscribe t
 
 ### Algolia specific scripts
 
-## Develoment Setup
+## Development Setup
 
 ## QI Notes
 
