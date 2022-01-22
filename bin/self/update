@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+REQUIRED_TOOLS=(
+  svn
+)
+
+for TOOL in "${REQUIRED_TOOLS[@]}"; do
+  if ! command -v "${TOOL}" >/dev/null; then
+    echo "${TOOL} is required... "
+    exit 1
+  fi
+done
+
+# loading current content of binaries and copy over bin directory
+svn export https://github.com/dnb-org/dnb-hugo-bin/trunk/bin tmp.bin
+cp -R tmp.bin bin
+rm -rf tmp.bin
