@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# retrieve latest version
+VERSION=$(curl -s "https://api.github.com/repos/dnb-org/dnb-hugo-bin/tags" | jq -r '.[0].name')
+
+# loading current content of binaries and copy over bin directory
+git clone --depth 1 --branch "${VERSION}" https://github.com/dnb-org/dnb-hugo-bin tmp.bin
+mkdir -p bin
+cp -R tmp.bin/bin bin
+rm -rf tmp.bin
+
+bin/self/update

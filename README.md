@@ -1,3 +1,10 @@
+<!--- CARD BEGIN --->
+
+![DNB-Hugo/HEAD](.github/github-card-dark.png#gh-dark-mode-only)
+![DNB-Hugo/HEAD](.github/github-card-light.png#gh-light-mode-only)
+
+<!--- CARD END --->
+
 This is a highly experimental project at the moment and tries to combine and normalise the build system across all `@dnb-org/dnb-hugo-*` projects. Use with caution. Don't blame me if it breaks everything ;) Once I have a version that I trust it will reach v1.0.0.
 
 ## Principal mode of operation
@@ -6,10 +13,10 @@ The scripts are contained in a `bin` directory and have a structured setup with 
 
 ## Installation
 
-Note that this will override files in `bin`. Either modify to fit your paths or commit all files in `bin` so you have something to `git diff` against at first install.
+Note that this will override files in `bin`. Commit all files in `bin` before installing/updating so you have something to `git diff` against at first install.
 
 ```bash
-git clone https://github.com/dnb-org/dnb-hugo-bin tmp.bin && mkdir -p bin && cp -R tmp.bin/bin bin && rm -rf tmp.bin
+sh -c "$(curl -sSL https://github.com/dnb-org/dnb-hugo-bin/blob/main/install)"
 ```
 
 ## Update
