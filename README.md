@@ -35,7 +35,7 @@ Run `bin/self/update`. Then check with `git diff` what's changed (or subscribe t
 
 - All scripts expect the project to be a GoHugo project, either by having the file structure of a Hugo website or by supplying a `go.mod` in the directory root. It's in the name, dummy :smirk:
 - Required tools may vary by script, but each script will test for availability of its requirement and complain if one is missing. In most cases a simple `apt install TOOLNAME` will suffice, if not the installation of the requirement will be explained in the scripts documentation. I typically try to use scripts that are available in any bash script environment, but sometimes something more specific is required.
-- Most scripts expect node/npm to be installed or available. Read [Development Setup](#developmentsetup) for details on how I set up my local development system.
+- Most scripts expect node/npm to be installed or available. Read [Development Setup](#development-setup) for details on how I set up my local development system.
 
 ## Scripts
 
