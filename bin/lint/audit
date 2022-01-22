@@ -40,7 +40,6 @@ FILE=.env
 if [ -f "$FILE" ]; then
   echo "exporting .env"
   set -a # export all variables created next
-  # shellcheck source=.env
   source "${FILE}"
   set +a # stop exporting
 fi

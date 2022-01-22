@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# shellcheck shell=/bin/bash
 REQUIRED_TOOLS=(
   hugo
   npm
@@ -21,7 +20,6 @@ FILE=.env
 if [ -f "$FILE" ]; then
   echo "exporting .env"
   set -a
-  # shellcheck source=/dev/null
   source "${FILE}"
   set +a
 fi

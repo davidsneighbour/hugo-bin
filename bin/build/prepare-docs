@@ -23,7 +23,6 @@ FILE=${CURPATH}/.env
 if [ -f "$FILE" ]; then
   echo "exporting .env"
   set -a
-  # shellcheck source=/dev/null
   source "${FILE}"
   set +a
 fi

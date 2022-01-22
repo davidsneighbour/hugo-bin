@@ -17,7 +17,6 @@ done
 FILE=.env
 if [ -f "$FILE" ]; then
   set -a
-  # shellcheck source=/dev/null
   source "${FILE}"
   set +a
 fi
