@@ -54,7 +54,8 @@ hugo server \
     --log true --logFile hugo.log \
     --verbose \
     --verboseLog \
-    --port 8888 \
-    --baseURL http://localhost/
+    --port "${TESTPORT}" \
+    --baseURL http://"${TESTIP}"/ \
+    --bind "${TESTIP}"
 
 # TODO --buildDrafts --buildExpired on request
