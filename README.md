@@ -55,7 +55,9 @@ Run `bin/self/update`. Then check with `git diff` what's changed (or subscribe t
 
 ## Development Setup
 
+### Setup `node` and `npm`
+
 ## QI Notes
 
-- We use shellcheck to improve the code quality in all bash files. While it might make a lot of sense to just silence certain errors we will strive to implement all rules properly. If a `# shellcheck` note is used to silence a warning/error then it will be commented explicitly or a PR with it will be declined.
-- Currently there is no `pre-commit` setup done yet, but in the near future (pre 1.0.0) a commit will need to be validated by `pre-commit` to be accepted.
+- We use [shellcheck](https://github.com/koalaman/shellcheck#readme) to improve the code quality in all bash files. While it might make a lot of sense to just silence certain errors we will strive to implement all rules properly. If a `# shellcheck` note is used to silence a warning/error then it will be commented explicitly or a PR with it will be declined. See [this](https://github.com/dnb-org/dnb-hugo-bin/blob/d06060af52e24ce0a7210e051b6749e49e769de3/bin/lint/find-todos#L17) for an example.
+- Currently there is no [pre-commit](https://pre-commit.com/) setup done yet, but in the near future (pre 1.0.0) a commit will need to be validated by `pre-commit` to be accepted.
