@@ -16,6 +16,12 @@ git clone https://github.com/dnb-org/dnb-hugo-bin tmp.bin && mkdir -p bin && cp 
 
 Run `bin/self/update`. Then check with `git diff` what's changed (or subscribe to [releases on GitHub](https://github.com/dnb-org/dnb-hugo-bin/releases)).
 
+## Rules
+
+- As this is the build system for @dnb-org components some of the default settings might be more restrictive than you would want them to be --- to keep _ME_ on a high quality coding course. All settings or procedures that might seem controversial will receive configuration options to be "fixed" for your requirements. Feel free to [open an issue about this](https://github.com/dnb-org/dnb-hugo-bin/issues) if you stumble upon one of these.
+- All code should be as self explanatory as possible. This includes useful variable names (for instance `counter` as opposed to `i`, `configurationPath` as opposed to `path`) and probably excessive commenting. As comments don't have any negative impact on compilation or run time it won't ever be seen as loquaciousy.
+- The [issue system of this repository](https://github.com/dnb-org/dnb-hugo-bin/issues) may be (ab)used as Q&A system, as brainstorm collection, as teaching spot. No worries. The worst that can happen is that your "issue" will be locked or closed.
+
 ## Configuration
 
 ## Requirements
@@ -41,3 +47,8 @@ Run `bin/self/update`. Then check with `git diff` what's changed (or subscribe t
 ### Algolia specific scripts
 
 ## Develoment Setup
+
+## QI Notes
+
+- We use shellcheck to improve the code quality in all bash files. While it might make a lot of sense to just silence certain errors we will strive to implement all rules properly. If a `# shellcheck` note is used to silence a warning/error then it will be commented explicitly or a PR with it will be declined.
+- Currently there is no `pre-commit` setup done yet, but in the near future (pre 1.0.0) a commit will need to be validated by `pre-commit` to be accepted.
