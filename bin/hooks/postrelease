@@ -16,4 +16,6 @@ git add data/dnb/debug/build.json
 git commit --signoff --amend --no-edit
 
 # push release to GitHub
-git push --follow-tags origin main
+git push origin --all
+git push origin --tags
+git push origin main --follow-tags
