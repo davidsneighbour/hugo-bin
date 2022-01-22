@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 REQUIRED_TOOLS=(
-  svn
+  git
 )
 
 for TOOL in "${REQUIRED_TOOLS[@]}"; do
@@ -11,7 +11,13 @@ for TOOL in "${REQUIRED_TOOLS[@]}"; do
   fi
 done
 
+# ! TODO add versioning and update only to released tags
+
 # loading current content of binaries and copy over bin directory
-svn export https://github.com/dnb-org/dnb-hugo-bin/trunk/bin tmp.bin
-cp -R tmp.bin bin
+git clone https://github.com/dnb-org/dnb-hugo-bin tmp.bin
+mkdir -p bin
+cp -R tmp.bin/bin bin
 rm -rf tmp.bin
+
+# removing files
+# intentionally left blank, will be updated if core files are renamed or removed
