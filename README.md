@@ -16,7 +16,7 @@ The scripts are contained in a `bin` directory and have a structured setup with 
 Note that this will override files in `bin`. Commit all files in `bin` before installing/updating so you have something to `git diff` against at first install.
 
 ```bash
-sh -c "$(curl -sSL https://github.com/dnb-org/dnb-hugo-bin/blob/main/install)"
+sh -c "$(curl -sSL https://raw.githubusercontent.com/dnb-org/dnb-hugo-bin/main/install)"
 ```
 
 ## Update
