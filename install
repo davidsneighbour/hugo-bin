@@ -4,7 +4,10 @@
 VERSION=$(curl -s "https://api.github.com/repos/dnb-org/dnb-hugo-bin/tags" | jq -r '.[0].name')
 
 # loading current content of binaries and copy over bin directory
-git clone --depth 1 --branch "${VERSION}" https://github.com/dnb-org/dnb-hugo-bin tmp.bin
+git clone --depth 1 -q \
+      --branch "${VERSION}" \
+      --config advice.detachedHead=false \
+      https://github.com/dnb-org/dnb-hugo-bin tmp.bin
 mkdir -p bin
 cp -r tmp.bin/bin .
 rm -rf tmp.bin
