@@ -3,8 +3,6 @@
 REQUIRED_TOOLS=(
   hugo
   npm
-  export
-  trap
 )
 
 for TOOL in "${REQUIRED_TOOLS[@]}"; do
@@ -25,8 +23,6 @@ FILE=.env
 if [ -f "$FILE" ]; then
   echo "exporting .env"
   set -a
-  # this routine ranges through a folder of files that we don't explicitly know (@davidsneighbour)
-  # see https://github.com/koalaman/shellcheck/wiki/SC1090
   # shellcheck source=/dev/null
   source "${FILE}"
   set +a
@@ -54,30 +50,14 @@ fi
 
 # starting hugo server
 env HUGO_MODULE_REPLACEMENTS="${HUGO_MODULE_REPLACEMENTS}" \
-  hugo server \
-    --gc \
-    --environment development \
-    --disableFastRender \
+  hugo \
     --i18n-warnings \
-    --navigateToChanged \
     --templateMetrics \
     --templateMetricsHints \
     --path-warnings \
-    --poll 1s \
     --cleanDestinationDir \
-    --renderToDisk \
-    --buildDrafts --buildExpired --buildFuture \
-    --watch \
     --enableGitInfo \
-    --forceSyncStatic \
-    --log true --logFile hugo.log \
+    --log=true \
+    --logFile hugo.log \
     --verbose \
-    --verboseLog \
-    --debug \
-    --meminterval 5s \
-    --memstats hugo_memory.log \
-    --print-mem \
-    --port "${PORT}" \
-    --baseURL http://"${IP}"/ \
-    --bind "${IP}" \
-    --panicOnWarning
+    --verboseLog
