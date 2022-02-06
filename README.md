@@ -41,17 +41,129 @@ Run `bin/self/update`. Then check with `git diff` what's changed (or subscribe t
 
 ### Build commands
 
+Dependency configuration for `package.json`:
+
+```json
+"devDependencies": {
+
+}
+```
+
+Script configuration for `package.json`:
+
+```json
+"scripts": {
+
+}
+```
+
 ### Dev Server
+
+Dependency configuration for `package.json`:
+
+```json
+"devDependencies": {
+
+}
+```
+
+Script configuration for `package.json`:
+
+```json
+"scripts": {
+
+}
+```
 
 ### Testing
 
+Dependency configuration for `package.json`:
+
+```json
+"devDependencies": {
+
+}
+```
+
+Script configuration for `package.json`:
+
+```json
+"scripts": {
+
+}
+```
+
 ### Release Hooks
+
+Dependency configuration for `package.json`:
+
+```json
+"devDependencies": {
+
+}
+```
+
+Script configuration for `package.json`:
+
+```json
+"scripts": {
+
+}
+```
 
 ### Linting
 
+Dependency configuration for `package.json`:
+
+```json
+"devDependencies": {
+
+}
+```
+
+Script configuration for `package.json`:
+
+```json
+"scripts": {
+
+}
+```
+
 ### Netlify specific scripts
 
+Dependency configuration for `package.json`:
+
+```json
+"devDependencies": {
+
+}
+```
+
+Script configuration for `package.json`:
+
+```json
+"scripts": {
+
+}
+```
+
 ### Algolia specific scripts
+
+Dependency configuration for `package.json`:
+
+```json
+"devDependencies": {
+
+}
+```
+
+Script configuration for `package.json`:
+
+```json
+"scripts": {
+
+}
+```
 
 ## Development Setup
 
