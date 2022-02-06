@@ -23,6 +23,8 @@ for FILE in bin/lib/*; do
   set +a
 done
 
+beta_notice
+
 # SCRIPTPATH="$(
 #   cd "$(dirname "$0")" >/dev/null 2>&1 || exit
 #   pwd -P
@@ -60,34 +62,34 @@ if test -f "${REPLACEMENTS}"; then
       HUGO_MODULE_REPLACEMENTS="${__[0]} -> ${__[1]}"
       NOT_FIRST_LINE=true
     fi
-  done < "${REPLACEMENTS}"
+  done <"${REPLACEMENTS}"
   export HUGO_MODULE_REPLACEMENTS="${HUGO_MODULE_REPLACEMENTS}"
 fi
 
 # starting hugo server
 #env HUGO_MODULE_REPLACEMENTS="${HUGO_MODULE_REPLACEMENTS}" \
-  hugo server \
-    --gc \
-    --environment development \
-    --disableFastRender \
-    --i18n-warnings \
-    --navigateToChanged \
-    --templateMetrics \
-    --templateMetricsHints \
-    --path-warnings \
-    --poll 1s \
-    --cleanDestinationDir \
-    --renderToDisk \
-    --buildFuture \
-    --watch \
-    --enableGitInfo \
-    --forceSyncStatic \
-    --log true --logFile hugo.log \
-    --verbose \
-    --verboseLog \
-    --port "${PORT}" \
-    --baseURL http://"${IP}"/ \
-    --bind "${IP}"
+hugo server \
+  --gc \
+  --environment development \
+  --disableFastRender \
+  --i18n-warnings \
+  --navigateToChanged \
+  --templateMetrics \
+  --templateMetricsHints \
+  --path-warnings \
+  --poll 1s \
+  --cleanDestinationDir \
+  --renderToDisk \
+  --buildFuture \
+  --watch \
+  --enableGitInfo \
+  --forceSyncStatic \
+  --log true --logFile hugo.log \
+  --verbose \
+  --verboseLog \
+  --port "${PORT}" \
+  --baseURL http://"${IP}"/ \
+  --bind "${IP}"
 
 # TODO --buildDrafts --buildExpired on request
 # TODO check --source dev
