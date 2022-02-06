@@ -55,7 +55,6 @@ fi
 # starting hugo server
 env HUGO_MODULE_REPLACEMENTS="${HUGO_MODULE_REPLACEMENTS}" \
   hugo server \
-    #--source dev \
     --gc \
     --environment development \
     --disableFastRender \
