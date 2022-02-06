@@ -17,3 +17,8 @@ hugo mod tidy
 rm -rf public/
 npm run build
 node ./bin/algolia/algolia-reindex.ts
+
+# cleaning up
+rm -f index.json
+rm -f links.json
+rm -f algolia.json
