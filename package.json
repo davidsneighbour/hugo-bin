@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/dnb-org/dnb-hugo-bin#readme",
   "devDependencies": {
-    "@dnb-org/standard-version-config": "^3.4.10"
+    "@dnb-org/standard-version-config": "^3.5.6"
   }
 }
