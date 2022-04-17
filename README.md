@@ -5,7 +5,7 @@
 
 <!--- CARD END --->
 
-This is a highly experimental project at the moment and tries to combine and normalise the build system across all `@dnb-org/dnb-hugo-*` projects. Use with caution. Don't blame me if it breaks everything ;) Once I have a version that I trust it will reach v1.0.0.
+This is a highly experimental project at the moment and tries to combine and normalise the build system across all `@davidsneighbour/hugo-*` projects. Use with caution. Don't blame me if it breaks everything ;) Once I have a version that I trust it will reach v1.0.0.
 
 ## Principal mode of operation
 
@@ -16,18 +16,18 @@ The scripts are contained in a `bin` directory and have a structured setup with 
 Note that this will override files in `bin`. Commit all files in `bin` before installing/updating so you have something to `git diff` against at first install.
 
 ```bash
-sh -c "$(curl -sSL https://raw.githubusercontent.com/dnb-org/dnb-hugo-bin/main/install)"
+sh -c "$(curl -sSL https://raw.githubusercontent.com/davidsneighbour/hugo-bin/main/install)"
 ```
 
 ## Update
 
-Run `bin/self/update`. Then check with `git diff` what's changed (or subscribe to [releases on GitHub](https://github.com/dnb-org/dnb-hugo-bin/releases)).
+Run `bin/self/update`. Then check with `git diff` what's changed (or subscribe to [releases on GitHub](https://github.com/davidsneighbour/hugo-bin/releases)).
 
 ## Rules
 
-- As this is the build system for `@dnb-org` components some of the default settings might be more restrictive than you would want them to be --- to keep _ME_ on a high quality coding course. All settings or procedures that might seem controversial will receive configuration options to be "fixed" for your requirements. Feel free to [open an issue about this](https://github.com/dnb-org/dnb-hugo-bin/issues) if you stumble upon one of these.
+- As this is the build system for `@davidsneighbour` components some of the default settings might be more restrictive than you would want them to be --- to keep _ME_ on a high quality coding course. All settings or procedures that might seem controversial will receive configuration options to be "fixed" for your requirements. Feel free to [open an issue about this](https://github.com/davidsneighbour/hugo-bin/issues) if you stumble upon one of these.
 - All code should be as self explanatory as possible. This includes useful variable names (for instance `counter` as opposed to `i`, `configurationPath` as opposed to `path`) and probably excessive commenting. As comments don't have any negative impact on compilation or run time it won't ever be seen as loquaciousy.
-- The [issue system of this repository](https://github.com/dnb-org/dnb-hugo-bin/issues) may be (ab)used as Q&A system, as brainstorm collection, as teaching spot. No worries. The worst that can happen is that your "issue" will be locked or closed.
+- The [issue system of this repository](https://github.com/davidsneighbour/hugo-bin/issues) may be (ab)used as Q&A system, as brainstorm collection, as teaching spot. No worries. The worst that can happen is that your "issue" will be locked or closed.
 
 ## Configuration
 
@@ -171,5 +171,5 @@ Script configuration for `package.json`:
 
 ## QI Notes
 
-- We use [shellcheck](https://github.com/koalaman/shellcheck#readme) to improve the code quality in all bash files. While it might make a lot of sense to just silence certain errors we will strive to implement all rules properly. If a `# shellcheck` note is used to silence a warning/error then it will be commented explicitly or a PR with it will be declined. See [this](https://github.com/dnb-org/dnb-hugo-bin/blob/d06060af52e24ce0a7210e051b6749e49e769de3/bin/lint/find-todos#L17) for an example.
+- We use [shellcheck](https://github.com/koalaman/shellcheck#readme) to improve the code quality in all bash files. While it might make a lot of sense to just silence certain errors we will strive to implement all rules properly. If a `# shellcheck` note is used to silence a warning/error then it will be commented explicitly or a PR with it will be declined. See [this](https://github.com/davidsneighbour/hugo-bin/blob/d06060af52e24ce0a7210e051b6749e49e769de3/bin/lint/find-todos#L17) for an example.
 - Currently there is no [pre-commit](https://pre-commit.com/) setup done yet, but in the near future (pre 1.0.0) a commit will need to be validated by `pre-commit` to be accepted.
