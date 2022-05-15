@@ -1,6 +1,6 @@
 {
   "name": "dnb-hugo-bin",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Highly experimental repo with some shell scripting that is used across dnb-org. ",
   "scripts": {
     "release": "standard-version --release-as patch -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && ./bin/hooks/postrelease",
