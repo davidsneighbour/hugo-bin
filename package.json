@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dnb-org/dnb-hugo-bin.git"
+    "url": "git+https://github.com/davidsneighbour/hugo-bin.git"
   },
   "author": "Patrick Kollitsch <patrick@davids-neighbour.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dnb-org/dnb-hugo-bin/issues"
+    "url": "https://github.com/davidsneighbour/hugo-bin/issues"
   },
-  "homepage": "https://github.com/dnb-org/dnb-hugo-bin#readme",
+  "homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
   "devDependencies": {
-    "@dnb-org/standard-version-config": "^3.5.9"
+    "@davidsneighbour/standard-version-config": "^3.5.9"
   }
 }
