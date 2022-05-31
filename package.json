@@ -1,7 +1,7 @@
 {
-  "name": "dnb-hugo-bin",
+  "name": "@davidsneighbour/hugo-bin",
   "version": "0.0.13",
-  "description": "Highly experimental repo with some shell scripting that is used across dnb-org. ",
+  "description": "Highly experimental repo with some shell scripting that is used across @davidsneighbour. ",
   "scripts": {
     "release": "standard-version --release-as patch -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && ./bin/release/postrelease",
     "release:major": "standard-version --release-as major -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && ./bin/release/postrelease",
