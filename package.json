@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
   "devDependencies": {
-    "@davidsneighbour/standard-version-config": "^4.0.4"
+    "@davidsneighbour/standard-version-config": "^5.0.9"
   }
 }
