@@ -1,0 +1,5 @@
+etc/hugo/replacements
+etc/.env
+.env
+
+node_modules
