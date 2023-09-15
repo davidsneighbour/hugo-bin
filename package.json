@@ -1,23 +1,23 @@
 {
-  "name": "@davidsneighbour/hugo-bin",
-  "version": "0.0.14",
-  "description": "Highly experimental repo with some shell scripting that is used across @davidsneighbour. ",
-  "scripts": {
-    "release": "standard-version --release-as patch -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && ./bin/release/postrelease",
-    "release:major": "standard-version --release-as major -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && ./bin/release/postrelease",
-    "release:minor": "standard-version --release-as minor -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && ./bin/release/postrelease"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/davidsneighbour/hugo-bin.git"
-  },
-  "author": "Patrick Kollitsch <patrick@davids-neighbour.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/davidsneighbour/hugo-bin/issues"
-  },
-  "homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
-  "devDependencies": {
-    "@davidsneighbour/standard-version-config": "^4.0.4"
-  }
+	"name": "@davidsneighbour/hugo-bin",
+	"version": "0.2023.0",
+	"description": "Experimental shell scripting that is used across @davidsneighbour projects. ",
+	"scripts": {
+		"release": "standard-version --release-as patch -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && ./bin/release/postrelease",
+		"release:major": "standard-version --release-as major -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && ./bin/release/postrelease",
+		"release:minor": "standard-version --release-as minor -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && ./bin/release/postrelease"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/davidsneighbour/hugo-bin.git"
+	},
+	"author": "Patrick Kollitsch <patrick@davids-neighbour.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/davidsneighbour/hugo-bin/issues"
+	},
+	"homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
+	"devDependencies": {
+		"@davidsneighbour/config": "5.0.0"
+	}
 }

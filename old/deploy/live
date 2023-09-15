@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# silently shutting down concurring hugo servers
+killall -q -9 hugo
+
+# cut a release
+npm run release
+
+# get the version number
+VERSION=$(node -pe 'require("./package.json")["version"]')
+
+# and deploy
+netlify deploy --build --prod --open --message "Release v${VERSION}"
+
+# and clear cloudflare cache
+node bin/cloudflare/purge-cache.mjs
