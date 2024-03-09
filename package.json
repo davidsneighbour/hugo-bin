@@ -1,6 +1,6 @@
 {
 	"name": "@davidsneighbour/hugo-bin",
-	"version": "0.2023.0",
+	"version": "0.2024.0",
 	"description": "Bash scripts that are used across @davidsneighbour projects.",
 	"scripts": {
 		"release": "commit-and-tag-version --release-as patch -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && ./bin/repo/release/postrelease",
