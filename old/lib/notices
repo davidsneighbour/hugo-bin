@@ -1,8 +1,0 @@
-# shellcheck shell=bash
-
-function beta_notice() {
-  echo -n "$COLOR_PURPLE"
-  echo -e "===============careful, beta, read before execution==============="
-  read -r -p "========== Wait 3 seconds or press any key to continue immediately" -t 3 -n 1 -s
-  echo
-}
