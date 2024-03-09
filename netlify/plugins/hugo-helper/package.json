@@ -1,0 +1,18 @@
+{
+  "name": "hugo-helper",
+  "description": "A Netlify plugin with helper functions for GoHugo deploys.",
+  "version": "0.0.2",
+  "license": "MIT",
+  "author": "Patrick Kollitsch <patrick@davids-neighbour.com>",
+  "devDependencies": {
+    "glob": "^10.3.10",
+    "@davidsneighbour/standard-version-config": "^5.9.7"
+  },
+  "scripts": {
+    "release:major": "commit-and-tag-version --release-as major --sign -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\"",
+    "release:minor": "commit-and-tag-version --release-as minor --sign -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\"",
+    "release:patch": "commit-and-tag-version --release-as patch --sign -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\""
+  },
+  "main": "index.js",
+  "type": "module"
+}
