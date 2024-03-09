@@ -36,10 +36,9 @@ fi
 
 echo "Deploying ${VERSION} to Netlify:"
 echo
+netlify switch
 
 hugo mod get -u ./...
-
-netlify switch
 npm run release
 npm run build:hugo
 npm run build:pagefind
