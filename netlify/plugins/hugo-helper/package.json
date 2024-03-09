@@ -1,7 +1,7 @@
 {
   "name": "hugo-helper",
   "description": "A Netlify plugin with helper functions for GoHugo deploys.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "author": "Patrick Kollitsch <patrick@davids-neighbour.com>",
   "devDependencies": {
