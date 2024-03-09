@@ -4,6 +4,7 @@ const defaultStandardVersion = {
   },
   skip: {
     changelog: true,
+    tag: true
   }
 };
 module.exports = defaultStandardVersion;
