@@ -40,6 +40,5 @@ netlify switch
 
 hugo mod get -u ./...
 npm run release
-npm run build:hugo
-npm run build:pagefind
+netlify build
 netlify deploy --prod --open

@@ -1,5 +1,4 @@
 #!/bin/bash
-
 REQUIRED_TOOLS=(
   hugo
   npm
@@ -12,12 +11,9 @@ for TOOL in "${REQUIRED_TOOLS[@]}"; do
   fi
 done
 
-hugo mod get -u ./...
-hugo mod tidy
-
-rm -rf public/
-hugo
-npm run pagefind
+# build website
+npm run build:hugo
+npm run build:pagefind
 
 # cleaning up
 rm -f index.json
