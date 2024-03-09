@@ -1,4 +1,4 @@
-name: hugo-helper
+name: netlify-plugin-hugo-helper
 inputs:
   - name: cache
     description: Enable caching of resources between deploys
@@ -10,4 +10,4 @@ inputs:
   - name: srcdir
     description: >
       Relative path to source directory in case you use Hugo's "--s" option
-    default: ""
+    default: ''
