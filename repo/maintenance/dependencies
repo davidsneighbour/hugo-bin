@@ -1,68 +1,44 @@
 #!/bin/bash
-# v20230716001
+# v20231203001
 
 set -euo pipefail # http://redsymbol.net/articles/unofficial-bash-strict-mode
 IFS=$'\n\t'
 
-# @todo quick check (just return status code)
-# @todo only list changed repositories
-# @todo better output formatting
+load_libraries() {
+  for file in bin/lib/*; do
+    set -a
+    # this routine ranges through a folder of files that we don't explicitly know (@davidsneighbour)
+    # see https://github.com/koalaman/shellcheck/wiki/SC1090
+    # shellcheck source=/dev/null
+    source "${file}"
+    set +a
+  done
+}
 
-REQUIRED_TOOLS=(
-  git
-)
+# Main Script
+REQUIRED_TOOLS=(git)
+load_libraries
+source_env_file
+check_and_exit_on_missing_tools "${REQUIRED_TOOLS[@]}"
 
-# check if all requirements are met
-for TOOL in "${REQUIRED_TOOLS[@]}"; do
-  if ! command -v "${TOOL}" >/dev/null; then
-    echo "${TOOL} is required... "
-    exit 1
-  fi
-done
-
-echo -e "\e[1;36m[================================================]\e[m"
-
-DEPENDENCIES=(
-  configurations
-  hugo-modules
-  samui-samui.de
-)
+# load required dependencies
+IFS=' ' read -ra DEPENDENCIES_PARSED <<<"$DEPENDENCIES"
+IFS=$'\n\t'
 
 # check if all requirements are met
 CHANGES=false
-for DEPENDENCY in "${DEPENDENCIES[@]}"; do
-  cd ../"${DEPENDENCY}" >/dev/null || return
-  if [ "$(git status --porcelain | wc -l)" -eq "0" ]; then
-    continue
-  else
-    CHANGES=true
-    echo -e "\e[1;36m[================== ${DEPENDENCY} ==================]\e[m"
-    if [ -d .git ]; then
-      git status -s
-    fi
-  fi
-done
+check_dependency_changes
 
 # list changed repositories
 if [ ${CHANGES} = true ]; then
-  echo -e "\e[1;36m[================== Unstashed Changes ==================]\e[m"
-  for DEPENDENCY in "${DEPENDENCIES[@]}"; do
-    cd ../"${DEPENDENCY}" >/dev/null || return
-    if [ "$(git status --porcelain | wc -l)" -eq "0" ]; then
-      echo "🟢 ${DEPENDENCY}"
-    else
-      echo "🔴 ${DEPENDENCY}"
-    fi
-  done
+  list_changed_repositories
 fi
 
 # ending
 if [ ${CHANGES} = false ]; then
-  echo "Nothing to do."
-  echo "Completed in ${SECONDS}s"
-  echo -e "\e[1;36m[================================================]\e[m"
+  true
 else
   echo "Completed in ${SECONDS}s"
-  echo -e "\e[1;36m[================================================]\e[m"
+  echo
   exit 1
 fi
