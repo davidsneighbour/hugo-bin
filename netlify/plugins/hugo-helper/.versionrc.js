@@ -7,4 +7,5 @@ const defaultStandardVersion = {
     tag: true
   }
 };
-module.exports = defaultStandardVersion;
+
+export default defaultStandardVersion;
