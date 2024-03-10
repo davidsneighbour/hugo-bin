@@ -12,6 +12,22 @@ import {
 // @todo trying to find out how this really is supposed to work
 import { exec as exec } from 'node:child_process';
 import fs from 'node:fs';
+import toml from 'toml';
+import path from 'node:path';
+
+import { fileURLToPath } from 'node:url';
+
+// Read TOML config file
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const configPath = path.resolve(__dirname, 'content.toml');
+let config;
+try {
+  const configFile = fs.readFileSync(configPath, 'utf8');
+  config = toml.parse(configFile);
+} catch (err) {
+  console.error(`Error reading TOML config file: ${err}`);
+  process.exit(0);
+}
 
 async function prepareSlug(title) {
   const slug_pre = title.replace(/\s+/g, '-').toLowerCase();
@@ -19,29 +35,81 @@ async function prepareSlug(title) {
   return slug;
 }
 
+/**
+ * Increments a counter in a JSON file.
+ * @param {string} filename - The path to the JSON file.
+ * @returns {Promise<number>} - A promise that resolves with the incremented counter value.
+ */
+async function incrementCounter(filename) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filename, 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+        return;
+      }
+      let jsonData = JSON.parse(data);
+      let number = jsonData.latest;
+      let increment = number + 1;
+      jsonData.latest = increment;
+      fs.writeFile(filename, JSON.stringify(jsonData, null, 2), (err) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+          return;
+        }
+        resolve(increment);
+      });
+    });
+  });
+}
+
+// Function to handle file reading errors
+function handleFileReadError(err, filename) {
+  console.error(`Error reading file '${filename}': ${err}`);
+  cancel(`An error occurred while reading file '${filename}': ${err}`);
+  process.exit(0);
+}
+
+// Function to handle file write errors
+function handleFileWriteError(err, filename) {
+  console.error(`Error writing to file '${filename}': ${err}`);
+  cancel(`An error occurred while writing to file '${filename}': ${err}`);
+  process.exit(0);
+}
+
+// Function to handle command execution errors
+function handleCommandExecutionError(err, command) {
+  console.error(`Error executing command '${command}': ${err}`);
+  cancel(`An error occurred while executing command '${command}': ${err}`);
+  process.exit(0);
+}
+
+// Validate title or slug input
+function validateTitleOrSlug(value, errorMessage) {
+  if (!value.trim()) {
+    return errorMessage;
+  }
+  // You can add more validation rules here if needed
+}
+
 async function main() {
 
+  let command, command2, title, slug, post;
   const date = new Date();
   const year = date.getFullYear();
   const spin = spinner();
-  let command;
-  let command2;
-  let title;
-  let slug, slug_pre;
-  let post;
 
   intro('Create content:');
 
+  const quitOption = [{ value: "quit", label: "Quit" }];
+
+  // Merge the config.contentOptions array with the quitOption array
+  const mergedOptions = [...config.contentOptions, ...quitOption];
+
   const contentType = await select({
     message: 'Pick a content type.',
-    options: [
-      { value: "post", label: "Post" },
-      { value: "video", label: "Video Post" },
-      { value: "m2p2", label: "Music to program to" },
-      { value: "labnotes", label: "Notes from the Lab" },
-      { value: "tag", label: "Tag", hint: "Tag description page" },
-      { value: "quit", label: "Quit" },
-    ]
+    options: mergedOptions
   });
 
   if (isCancel(contentType)) {
@@ -52,101 +120,46 @@ async function main() {
   switch (contentType) {
 
     case 'quit':
-      cancel('Operation cancelled');
+
+      outro('Operation cancelled');
       return process.exit(0);
 
-    case 'component':
-      title = await text({
-        message: 'Component Name:',
-        validate(value) {
-          if (value.length === 0) return `Title is required, doh!`;
-        }
-      });
-      slug = await prepareSlug(title);
-      post = `components/${slug}`;
-      command = `hugo new --kind components ${post}`;
-      command2 = `code content/${post}/index.md`;
-      break;
-
-    case 'm2p2':
-      let number;
-      let increment;
-      const filename = "data/dnb/kollitsch/m2p2.json";
-      await /** @type {Promise<void>} */(new Promise((resolve, _reject) => {
-        fs.readFile(filename, 'utf8', function (err, buf) {
-          if (err) {
-            console.log(err);
-            cancel(`An error occured: ${err}`);
-            process.exit(0);
-          }
-          let data = JSON.parse(buf);
-          number = data.latest;
-          console.log(number);
-          increment = number + 1;
-          console.log(increment);
-          data.latest = increment;
-          fs.writeFile(filename, JSON.stringify(data, null, 2), (err) => {
-            if (err) console.log(err);
-          });
-          resolve();
-        });
-      }));
-      post = `blog/${year}/music-to-program-to-` + increment;
-      command = `hugo new --kind music2program2 ${post}`;
-      command2 = `code content/${post}/index.md`;
-      break;
-
-    case 'labnotes':
-      title = await text({
-        message: 'Month:',
-        validate(value) {
-          if (value.length === 0) return `Month is required, doh!`;
-        }
-      });
-      slug = await prepareSlug(title);
-      post = `blog/${year}/notes-from-the-laboratory-${slug}`;
-      command = `hugo new --kind notes-from-the-laboratory ${post}`;
-      command2 = `code content/${post}/index.md`;
-      break;
-
-    case 'tag':
-      title = await text({
-        message: 'Tag Title:',
-        validate(value) {
-          if (value.length === 0) return `Title is required, doh!`;
-        }
-      });
-      slug = await prepareSlug(title);
-      post = `tags/${slug}`;
-      command = `hugo new ${post}`;
-      command2 = `code content/${post}/_index.md`;
-      break;
-
-    case 'video':
-      title = await text({
-        message: 'Post Slug (special characters will be removed):',
-        validate(value) {
-          if (value.length === 0) return `Slug is required, doh!`;
-        }
-      });
-      slug = await prepareSlug(title);
-      post = `blog/${year}/${slug}`;
-      command = `hugo new --kind video ${post}`;
-      command2 = `code content/${post}/index.md`;
-      break;
-
-    case 'post':
     default:
-      title = await text({
-        message: 'Post Slug (special characters will be removed):',
-        validate(value) {
-          if (value.length === 0) return `Slug is required, doh!`;
-        }
-      });
-      slug = await prepareSlug(title);
-      post = `blog/${year}/${slug}`;
-      command = `hugo new --kind blog ${post}`;
-      command2 = `code content/${post}/index.md`;
+
+      const itemContentOptions = config.contentOptions.find(
+        (/** @type {{ value: any; }} */ option) => option.value === contentType
+      );
+      const {
+        kind,
+        path: contentPath,
+        customSlug = true,
+        counter = false,
+        labels = {
+          title: 'Post Slug (special characters will be removed):',
+          titleError: 'Slug is required, doh!',
+        },
+      } = itemContentOptions;
+
+      if (customSlug) {
+        title = await text({
+          message: labels.title,
+          validate(value) {
+            if (value.length === 0) return labels.titleError;
+          }
+        });
+        slug = await prepareSlug(title);
+      }
+
+      let postPath = contentPath.replace('${year}', year).replace('${slug}', slug);
+
+      if (counter) {
+        const counter = incrementCounter(contentPath);
+        postPath = postPath.replace('${counter}', counter);
+      }
+
+      command = `hugo new --kind ${kind} ${postPath}`;
+      command2 = `code content/${postPath}/index.md`;
+
       break;
 
   }
@@ -155,11 +168,7 @@ async function main() {
   spin.start('Creating content files...');
 
   await /** @type {Promise<void>} */(new Promise((resolve, _reject) => {
-    exec(command, function (
-      error,
-      _stdout,
-      stderr
-    ) {
+    exec(command, function (error, _stdout, stderr) {
       if (error) {
         console.log(error);
         cancel(`An error occured: ${error}`);
@@ -177,11 +186,7 @@ async function main() {
   spin.stop('Content created. Opening in VS Code...');
 
   await /** @type {Promise<void>} */(new Promise((resolve, _reject) => {
-    exec(command2, function (
-      error,
-      _stdout,
-      stderr
-    ) {
+    exec(command2, function (error, _stdout, stderr) {
       if (error) {
         console.log(error);
         cancel(`An error occured: ${error}`);
@@ -196,7 +201,7 @@ async function main() {
     });
   }));
 
-  outro('All done :)');
+  outro('All done :]');
   process.exit(1);
 
 }
