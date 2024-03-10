@@ -19,5 +19,8 @@
 	"homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
 	"devDependencies": {
 		"@davidsneighbour/configurations": "5.9.7"
+	},
+	"dependencies": {
+		"@davidsneighbour/netlify-plugin-hugo-helper": "^0.1.5"
 	}
 }
