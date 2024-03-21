@@ -3,6 +3,13 @@ import fs from 'fs/promises';
 import mockFs from 'mock-fs';
 import path from 'path';
 
+// jest.mock('fs/promises', () => ({
+//     ...jest.requireActual('fs/promises'),
+//     readFilePermissionDenied: jest.fn().mockRejectedValue(new Error('EACCES: permission denied')),
+//     writeFilePermissionDenied: jest.fn().mockRejectedValue(new Error('EACCES: permission denied')),
+//     writeFileMissing: jest.fn().mockRejectedValue(new Error('ENOENT: no such file or directory')),
+// }));
+
 describe('cacheFileExists', () => {
     beforeEach(() => {
         // Setup a mock file system before each test
@@ -14,8 +21,8 @@ describe('cacheFileExists', () => {
     });
 
     afterEach(() => {
-        // Restore the file system after each test
-        mockFs.restore();
+        //jest.restoreAllMocks(); // Restore original implementations
+        mockFs.restore();       // Restore the file system
     });
 
     test('returns true if the file exists', async () => {
@@ -32,12 +39,16 @@ describe('readCache', () => {
         mockFs({
             'path/to': {
                 'cache.json': JSON.stringify({ key: 'value' }),
+                'empty.json': '',
+                'wrongFormat.json': 'not json content',
+                'invalid.json': '{invalid}',
             },
         });
     });
 
     afterEach(() => {
-        mockFs.restore();
+        //jest.restoreAllMocks(); // Restore original implementations
+        mockFs.restore();       // Restore the file system
     });
 
     test('reads and parses JSON from an existing file', async () => {
@@ -47,6 +58,21 @@ describe('readCache', () => {
 
     test('returns an empty array if the file does not exist', async () => {
         const data = await readCache('path/to/nonExistingFile.json');
+        expect(data).toEqual([]);
+    });
+
+    test('returns an empty array if the file exists but is empty', async () => {
+        const data = await readCache('path/to/empty.json');
+        expect(data).toEqual([]);
+    });
+
+    test('returns an empty array if the file contains invalid JSON', async () => {
+        const data = await readCache('path/to/invalid.json');
+        expect(data).toEqual([]);
+    });
+
+    test('throws an error if the file exists but contains non-JSON', async () => {
+        const data = await readCache('path/to/wrongFormat.json');
         expect(data).toEqual([]);
     });
 });
@@ -59,7 +85,8 @@ describe('writeCache', () => {
     });
 
     afterEach(() => {
-        mockFs.restore();
+        //jest.restoreAllMocks(); // Restore original implementations
+        mockFs.restore();       // Restore the file system
     });
 
     test('writes JSON data to a file', async () => {

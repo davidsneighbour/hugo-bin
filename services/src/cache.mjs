@@ -23,18 +23,23 @@ export async function cacheFileExists(filePath) {
 }
 
 /**
- * Read the cache file and parse its JSON content. If the file doesn't exist, returns an empty array.
+ * Read the cache file and parse its JSON content.
+ * If the file doesn't exist, returns an empty array.
+ * If the file exists but is empty or has invalid JSON, also returns an empty array.
  *
  * @export
  * @param {string} filePath Path to the file.
- * @return {Promise<Object|Array>} Promise that resolves with the parsed JSON object or array from the file, or an empty array if the file does not exist.
+ * @return {Promise<Object|Array>} Promise that resolves with the parsed JSON object or array from the file, or an empty array if the file does not exist or is empty/invalid.
  */
 export async function readCache(filePath) {
   try {
     const data = await readFile(filePath, { encoding: 'utf8' });
-    return JSON.parse(data);
+    // Check if the file is empty or if the content is not valid JSON
+    return data.trim() ? JSON.parse(data) : [];
   } catch (error) {
-    if (error.code === 'ENOENT') return [];
+    if (error.code === 'ENOENT' || error instanceof SyntaxError) {
+      return [];
+    }
     throw error;
   }
 }
