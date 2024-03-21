@@ -1,0 +1,8 @@
+{
+  "verbose": false,
+  "testEnvironment": "node",
+  "transform": {},
+  "testMatch": [
+    "**/?(*.)+(spec|test).mjs"
+  ]
+}
