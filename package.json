@@ -21,6 +21,7 @@
 		"@davidsneighbour/configurations": "5.9.7"
 	},
 	"dependencies": {
-		"@davidsneighbour/netlify-plugin-hugo-helper": "^0.1.5"
+		"@davidsneighbour/netlify-plugin-hugo-helper": "^0.1.5",
+		"@davidsneighbour/prettier-config": "^5.11.0"
 	}
 }
