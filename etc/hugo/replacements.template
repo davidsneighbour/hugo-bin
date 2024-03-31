@@ -9,6 +9,7 @@ github.com/davidsneighbour/hugo-modules/modules/feeds ../../hugo-modules/modules
 github.com/davidsneighbour/hugo-modules/modules/functions ../../hugo-modules/modules/functions
 github.com/davidsneighbour/hugo-modules/modules/giscus ../../hugo-modules/modules/giscus
 github.com/davidsneighbour/hugo-modules/modules/head ../../hugo-modules/modules/head
+github.com/davidsneighbour/hugo-modules/modules/headerimage ../../hugo-modules/modules/headerimage
 github.com/davidsneighbour/hugo-modules/modules/hooks ../../hugo-modules/modules/hooks
 github.com/davidsneighbour/hugo-modules/modules/icons ../../hugo-modules/modules/icons
 github.com/davidsneighbour/hugo-modules/modules/iliad ../../hugo-modules/modules/iliad
