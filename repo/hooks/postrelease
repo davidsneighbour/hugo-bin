@@ -34,22 +34,9 @@ else
   exit 0
 fi
 
-# update version in citation configuration
-FILE=CITATION.cff
-if test -f "$FILE"; then
-  sed -i "s/^version: .*/version: ${VERSION}/" $FILE
-  DATE=$(date +%F)
-  sed -i "s/^date-released: .*/date-released: ${DATE}/" $FILE
-  git add $FILE
-fi
-
-# add re-versioned files to recent edit
-git add data/dnb/
-git commit --amend --no-edit --quiet --signoff --no-verify
-
 # push everything up
-git push --follow-tags origin main --quiet --force
-git push --tags --quiet --force
+git push origin main --follow-tags
+git push origin --tags
 
 # create a release on GitHub
 GITHUB_REPO=https://github.com/${GITHUB_REPOSLUG}
@@ -69,7 +56,3 @@ curl \
   >assets/data/build.json
 
 xdg-open "${URL}" &>>/dev/null
-
-git add assets/data/build.json
-git commit -m "chore: add build information" --signoff --no-verify
-git push origin main --quiet

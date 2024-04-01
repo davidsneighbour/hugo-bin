@@ -34,7 +34,6 @@ fi
 # check if modules are up to date
 declare -a MODULES=(
   "hugo-modules"
-  "hugo-theme"
 )
 for i in "${MODULES[@]}"; do
   cd "../$i" || exit
