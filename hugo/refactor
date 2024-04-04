@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Load environment variables from .env file if it exists
+if [ -f .env ]; then
+  export $(cat .env | sed 's/#.*//g' | xargs)
+fi
+
 usage() {
   echo "Usage: $0 <directory>"
   exit 1
