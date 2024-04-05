@@ -52,7 +52,6 @@ curl \
       \"name\":\"${TAGNAME}\", \
       \"body\":\"${TAGNAME}\", \
       \"generate_release_notes\":false \
-  }" \
-  >assets/data/build.json
+  }"
 
 xdg-open "${URL}" &>>/dev/null
