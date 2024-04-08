@@ -1,5 +1,4 @@
-const defaultStandardVersion = require("@davidsneighbour/release-config");
-module.exports = defaultStandardVersion;
+import defaultStandardVersion from "@davidsneighbour/release-config";
 
 const localStandardVersion = {
   scripts: {
@@ -14,4 +13,4 @@ const standardVersion = {
   ...defaultStandardVersion,
   ...localStandardVersion,
 };
-module.exports = standardVersion;
+export default standardVersion;
