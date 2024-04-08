@@ -23,5 +23,6 @@
 	"dependencies": {
 		"@davidsneighbour/netlify-plugin-hugo-helper": "^0.1.5",
 		"@davidsneighbour/prettier-config": "^5.11.0"
-	}
+	},
+	"type": "module"
 }
