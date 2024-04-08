@@ -1,28 +1,26 @@
 {
-	"name": "@davidsneighbour/hugo-bin",
-	"version": "0.2024.15",
-	"description": "Bash scripts that are used across @davidsneighbour projects.",
-	"scripts": {
-		"release": "commit-and-tag-version --release-as patch -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main",
-		"release:major": "commit-and-tag-version --release-as major -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main",
-		"release:minor": "commit-and-tag-version --release-as minor -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/davidsneighbour/hugo-bin.git"
-	},
-	"author": "Patrick Kollitsch <patrick@davids-neighbour.com>",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/davidsneighbour/hugo-bin/issues"
-	},
-	"homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
-	"devDependencies": {
-		"@davidsneighbour/configurations": "5.9.7"
-	},
-	"dependencies": {
-		"@davidsneighbour/netlify-plugin-hugo-helper": "^0.1.5",
-		"@davidsneighbour/prettier-config": "^5.11.0"
-	},
-	"type": "module"
+    "name": "@davidsneighbour/hugo-bin",
+    "version": "0.2024.15",
+    "description": "Bash scripts that are used across @davidsneighbour projects.",
+    "scripts": {
+        "release": "commit-and-tag-version --release-as patch -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main",
+        "release:major": "commit-and-tag-version --release-as major -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main",
+        "release:minor": "commit-and-tag-version --release-as minor -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/davidsneighbour/hugo-bin.git"
+    },
+    "author": "Patrick Kollitsch <patrick@davids-neighbour.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/davidsneighbour/hugo-bin/issues"
+    },
+    "homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
+    "devDependencies": {
+        "@davidsneighbour/release-config": "2024.2.3",
+        "@davidsneighbour/netlify-plugin-hugo-helper": "^0.1.5",
+        "@davidsneighbour/prettier-config": "^2024.2.3"
+    },
+    "type": "module"
 }
