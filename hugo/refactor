@@ -1,9 +1,16 @@
 #!/bin/bash
 
-# Load environment variables from .env file if it exists
-if [ -f .env ]; then
-  export $(cat .env | sed 's/#.*//g' | xargs)
-fi
+for FILE in bin/lib/*; do
+  set -a
+  # this routine ranges through a folder of files that we don't explicitly know (@davidsneighbour)
+  # see https://github.com/koalaman/shellcheck/wiki/SC1090
+  # shellcheck source=/dev/null
+  source "${FILE}"
+  set +a
+done
+
+# load environment variables from .env file if it exists
+source_env
 
 usage() {
   echo "Usage: $0 <directory>"
