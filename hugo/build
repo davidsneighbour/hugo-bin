@@ -1,81 +1,96 @@
 #!/bin/bash
 
-# set -euo pipefail # http://redsymbol.net/articles/unofficial-bash-strict-mode
-# IFS=$'\n\t'
+# description: build GoHugo website
+# usage: ./bin/hugo/build [baseURL]
 
-# SCRIPTPATH="$(
-#   cd "$(dirname "$0")" >/dev/null 2>&1 || exit
-#   pwd -P
-# )"
-CURPATH="$(pwd -P)"
+set -eo pipefail
+IFS=$'\n\t'
+CURPATH=$(pwd -P)
 
-# check required tools
-REQUIRED_TOOLS=(
-  hugo
-  git
-  npm
-)
-for TOOL in "${REQUIRED_TOOLS[@]}"; do
-  if ! command -v "${TOOL}" >/dev/null; then
-    echo "${TOOL} is required... "
+check_required_tools() {
+  local missing_tools=()
+  local tools=(hugo git npm)
+
+  for tool in "${tools[@]}"; do
+    if ! command -v "$tool" &>/dev/null; then
+      missing_tools+=("$tool")
+    fi
+  done
+
+  if [ ${#missing_tools[@]} -ne 0 ]; then
+    echo "Missing required tools: ${missing_tools[*]}"
     exit 1
   fi
-done
+}
 
-# load .env variables
-FILE=.env
-if [ -f "$FILE" ]; then
-  set -a
-  # shellcheck source=/dev/null
-  source "${FILE}"
-  set +a
-fi
-
-# check if modules are up to date
-declare -a MODULES=(
-  "hugo-modules"
-)
-for i in "${MODULES[@]}"; do
-  cd "../$i" || exit
-  if [[ $(git diff --stat) != '' ]]; then
-    echo "${i} is dirty"
-    exit 128
+load_env_variables() {
+  local env_file=".env"
+  if [ -f "$env_file" ]; then
+    set -a
+    source "$env_file"
+    set +a
   fi
-done
-cd "$CURPATH" || exit
+}
 
-# read base url from first argument, if empty use empty value
-BASE_URL_PARAM=""
-if [ -n "${1}" ]; then
-  BASE_URL_PARAM="--baseURL=${1}"
-fi
-
-# create replacements via environment
-NOT_FIRST_LINE=false
-HUGO_MODULE_REPLACEMENTS=""
-REPLACEMENTS="${CURPATH}"/bin/etc/hugo/replacements
-if test -f "${REPLACEMENTS}"; then
-  while read -ra __; do
-    if $NOT_FIRST_LINE; then
-      HUGO_MODULE_REPLACEMENTS="${HUGO_MODULE_REPLACEMENTS},${__[0]} -> ${__[1]}"
-    else
-      HUGO_MODULE_REPLACEMENTS="${__[0]} -> ${__[1]}"
-      NOT_FIRST_LINE=true
+check_modules() {
+  local modules=("hugo-modules")
+  local module_path
+  for module in "${modules[@]}"; do
+    module_path="../$module"
+    if [ -d "$module_path" ]; then
+      cd "$module_path"
+      if [[ $(git diff --stat) != '' ]]; then
+        echo "$module is dirty"
+        exit 128
+      fi
+      cd - >/dev/null
     fi
-  done <"${REPLACEMENTS}"
-  [[ -n "${HUGO_MODULE_REPLACEMENTS}" ]] && export HUGO_MODULE_REPLACEMENTS="${HUGO_MODULE_REPLACEMENTS}" || echo "No replacements found"
-fi
+  done
+}
 
-# cleanup hugo logging
-npm run clean
+parse_arguments() {
+  BASE_URL_PARAM=""
+  if [ -n "$1" ]; then
+    BASE_URL_PARAM="--baseURL=$1"
+  fi
+}
 
-# update modules
-hugo mod get -u ./...
+process_replacements() {
+  local replacements_file="${CURPATH}/bin/etc/hugo/replacements"
+  local replacements=""
+  local not_first_line=false
 
-# running hugo
-# shellcheck disable=SC2086
-env HUGO_MODULE_REPLACEMENTS="${HUGO_MODULE_REPLACEMENTS}" \
-  hugo \
-  --logLevel "${LOGLEVEL}" \
-  --enableGitInfo \
-  $BASE_URL_PARAM
+  if [ -f "$replacements_file" ]; then
+    while read -r -a line; do
+      if $not_first_line; then
+        replacements="$replacements,${line[0]} -> ${line[1]}"
+      else
+        replacements="${line[0]} -> ${line[1]}"
+        not_first_line=true
+      fi
+    done <"$replacements_file"
+    export HUGO_MODULE_REPLACEMENTS=$replacements
+  fi
+}
+
+run_hugo() {
+  npm run clean
+  hugo mod get -u ./...
+
+  env HUGO_MODULE_REPLACEMENTS="$HUGO_MODULE_REPLACEMENTS" \
+    hugo \
+    --logLevel "$LOGLEVEL" \
+    --enableGitInfo \
+    $BASE_URL_PARAM
+}
+
+main() {
+  check_required_tools
+  load_env_variables
+  check_modules
+  parse_arguments "$@"
+  process_replacements
+  run_hugo
+}
+
+main "$@"
