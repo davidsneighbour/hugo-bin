@@ -39,7 +39,7 @@ git push origin main --follow-tags
 git push origin --tags
 
 # create a release on GitHub
-CHANGES=$(cat changes.md)
+CHANGES=$(jq -Rs . <changes.md)
 GITHUB_REPO=https://github.com/${GITHUB_REPOSLUG}
 TAGNAME=v${VERSION}
 URL="$GITHUB_REPO"/"releases/edit/v""$VERSION"
