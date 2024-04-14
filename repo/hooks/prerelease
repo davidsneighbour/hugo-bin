@@ -128,4 +128,4 @@ fi
 
 # update scss theme documentation
 npm run sassdoc
-git add themes/theme/static
+git add static
