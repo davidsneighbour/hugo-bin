@@ -39,6 +39,7 @@ git push origin main --follow-tags
 git push origin --tags
 
 # create a release on GitHub
+CHANGES=$(cat changes.md)
 GITHUB_REPO=https://github.com/${GITHUB_REPOSLUG}
 TAGNAME=v${VERSION}
 URL="$GITHUB_REPO"/"releases/edit/v""$VERSION"
@@ -50,8 +51,9 @@ curl \
   -d "{ \
       \"tag_name\":\"${TAGNAME}\", \
       \"name\":\"${TAGNAME}\", \
-      \"body\":\"${TAGNAME}\", \
+      \"body\":\"${CHANGES}\", \
       \"generate_release_notes\":false \
   }"
 
+rm changes.md
 xdg-open "${URL}" &>>/dev/null
