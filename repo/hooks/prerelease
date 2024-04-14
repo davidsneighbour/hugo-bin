@@ -35,7 +35,7 @@ SCRIPTPATH="$(
 )"
 CURPATH="$(pwd -P)"
 
-/bin/bash "${CURPATH}"/bin/repo/maintenance/dependencies
+# /bin/bash "${CURPATH}"/bin/repo/maintenance/dependencies
 
 node --no-warnings bin/utilities/site-screenshot.mjs --url "https://${HOSTNAME}:${PORT}" --output "$CURPATH"/.github/images/screenshot.png
 git add "$CURPATH"/.github/images
@@ -129,3 +129,6 @@ fi
 # update scss theme documentation
 npm run sassdoc
 git add static
+
+RELEASE_NOTES="$(npx commit-and-tag-version --dry-run | awk 'BEGIN { flag=0 } /^---$/ { if (flag == 0) { flag=1 } else { flag=2 }; next } flag == 1')"
+echo "${RELEASE_NOTES}" >changes.md
