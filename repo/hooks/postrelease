@@ -56,7 +56,7 @@ curl \
   -d "{ \
       \"tag_name\":\"${TAGNAME}\", \
       \"name\":\"${TAGNAME}\", \
-      \"body\":\"${CHANGES}\", \
+      \"body\":${CHANGES}, \
       \"generate_release_notes\":false \
   }"
 
