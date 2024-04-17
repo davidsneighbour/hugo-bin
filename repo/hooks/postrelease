@@ -43,7 +43,7 @@ CHANGES=$(jq -Rs . <changes.md)
 GITHUB_REPO=https://github.com/${GITHUB_REPOSLUG}
 TAGNAME=v${VERSION}
 URL="$GITHUB_REPO"/"releases/edit/v""$VERSION"
-curl \
+response=$(curl -s -o response.json -w "%{http_code}" \
   -X POST \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: token ${GITHUB_SECRET}" \
@@ -53,7 +53,14 @@ curl \
       \"name\":\"${TAGNAME}\", \
       \"body\":${CHANGES}, \
       \"generate_release_notes\":false \
-  }"
+  }")
 
-rm changes.md
-xdg-open "${URL}" &>>/dev/null
+if [[ "$response" -ge 200 && "$response" -lt 300 ]]; then
+  echo "Release created successfully."
+  rm changes.md
+  xdg-open "${URL}" &>/dev/null
+else
+  echo "Failed to create release. Status code: $response"
+  echo "Opening changes file for review."
+  code changes.md
+fi
