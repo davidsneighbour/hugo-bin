@@ -58,9 +58,9 @@ response=$(curl -s -o response.json -w "%{http_code}" \
 if [[ "$response" -ge 200 && "$response" -lt 300 ]]; then
   echo "Release created successfully."
   rm changes.md
-  xdg-open "${URL}" &>/dev/null
 else
   echo "Failed to create release. Status code: $response"
   echo "Opening changes file for review."
   code changes.md
 fi
+xdg-open "${URL}" &>/dev/null
