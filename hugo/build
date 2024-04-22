@@ -87,7 +87,7 @@ run_hugo() {
 main() {
   check_required_tools
   load_env_variables
-  check_modules
+  # check_modules
   parse_arguments "$@"
   process_replacements
   run_hugo
