@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 import yargs from "yargs";
 import { hideBin } from 'yargs/helpers';
-import version from "../../package.json" assert { type: "json" };
+import version from "../../package.json" with { type: "json" };
 
 const argv = yargs(hideBin(process.argv))
 
