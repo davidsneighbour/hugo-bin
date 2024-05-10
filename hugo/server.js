@@ -4,6 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
 // Helper functions
 function displayHelp() {
@@ -26,13 +28,33 @@ function elapsedTime(seconds) {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Parse arguments
-const args = process.argv.slice(2);
-const verboseMode = args.includes('-v');
-if (args.includes('-h')) {
-    displayHelp();
-    process.exit(0);
-}
+// Command-line argument parsing
+const argv = yargs(hideBin(process.argv))
+    .option('port', {
+        alias: 'p',
+        type: 'string',
+        description: 'Specify the port for Hugo server',
+    })
+    .option('bind', {
+        alias: 'b',
+        type: 'string',
+        description: 'Specify the IP address to bind the server',
+    })
+    .option('environment', {
+        alias: 'e',
+        type: 'string',
+        description: 'Specify the environment for the Hugo server',
+    })
+    .option('verbose', {
+        alias: 'v',
+        type: 'boolean',
+        description: 'Enable verbose mode',
+    })
+    .help('h')
+    .alias('h', 'help')
+    .argv;
+
+const verboseMode = argv.verbose;
 
 // Starting script
 const startTime = Date.now();
@@ -56,14 +78,14 @@ function checkAndExitOnMissingTools(...tools) {
 
 checkAndExitOnMissingTools('hugo', 'npm');
 
-// load `.env` if available
+// Load `.env` if available
 const envFilePath = path.join(process.cwd(), '.env');
 if (fs.existsSync(envFilePath)) {
     console.log('Exporting .env variables');
     dotenv.config({ path: envFilePath });
 }
 
-// clean public directory
+// Clean public directory
 exec('rm -rf public', (error, stdout, stderr) => {
     if (error) {
         console.error(`Error: ${stderr}`);
@@ -74,7 +96,7 @@ exec('rm -rf public', (error, stdout, stderr) => {
     }
 });
 
-// recreate SSL certificates
+// Recreate SSL certificates
 exec('hugo server trust', (error, stdout, stderr) => {
     if (error) {
         console.error(`Error: ${stderr}`);
@@ -85,7 +107,7 @@ exec('hugo server trust', (error, stdout, stderr) => {
     }
 });
 
-// configure module replacements from a file
+// Configure module replacements from a file
 const replacementsFile = path.join(__dirname, './bin/etc/hugo/replacements');
 let hugoModuleReplacements = '';
 if (fs.existsSync(replacementsFile)) {
@@ -131,7 +153,7 @@ processServerOptions(serverConfigurations);
 
 // Start Hugo server
 const hugoArgs = [
-    '--environment', 'development',
+    '--environment', argv.environment || process.env.ENVIRONMENT || 'development',
     '--disableFastRender',
     '--navigateToChanged',
     '--watch',
@@ -139,8 +161,8 @@ const hugoArgs = [
     '--forceSyncStatic',
     '--tlsAuto',
     '--baseURL', `https://${process.env.HOSTNAME}/`,
-    '--port', process.env.PORT || '1313',
-    '--bind', process.env.IP || '127.0.0.1',
+    '--port', argv.port || process.env.PORT || '1313',
+    '--bind', argv.bind || process.env.IP || '127.0.0.1',
     ...serverOptions
 ];
 

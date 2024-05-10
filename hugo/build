@@ -1,5 +1,15 @@
 #!/bin/bash
 
+function echo_warning() {
+  local message="$1"
+  # ANSI escape sequence for bold red text
+  echo -e "\033[1;31m#######################################################################\033[0m"
+  echo -e "\033[1;31m${message}\033[0m"
+  echo -e "\033[1;31m#######################################################################\033[0m"
+}
+
+echo_warning "THIS SCRIPT IS DEPRECATED, USE 'node ./bin/hugo/build.js' INSTEAD!"
+
 # description: build GoHugo website
 # usage: ./bin/hugo/build [baseURL]
 
