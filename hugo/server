@@ -1,5 +1,15 @@
 #!/bin/bash
 
+function echo_warning() {
+  local message="$1"
+  # ANSI escape sequence for bold red text
+  echo -e "\033[1;31m#######################################################################\033[0m"
+  echo -e "\033[1;31m${message}\033[0m"
+  echo -e "\033[1;31m#######################################################################\033[0m"
+}
+
+echo_warning "THIS SCRIPT IS DEPRECATED, USE 'node ./bin/hugo/server.js' INSTEAD!"
+
 set -euo pipefail # http://redsymbol.net/articles/unofficial-bash-strict-mode
 
 # Reset BASH time counter
