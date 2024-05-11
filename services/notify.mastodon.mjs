@@ -1,4 +1,3 @@
-// @todo document
 // @see https://docs.joinmastodon.org/methods/statuses/#create
 
 import { loadFeed } from './utils.mjs';
@@ -8,9 +7,6 @@ import { parseString } from 'xml2js';
 
 const { MASTODON_ACCESS_TOKEN, FEED_LINK } = process.env;
 
-/**
- * @todo better post content (markdown is not parsed server side)
- */
 const main = async () => {
   try {
     const feed = await loadFeed(FEED_LINK);

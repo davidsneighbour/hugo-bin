@@ -33,7 +33,6 @@ const logger = createLogger({
 const { releases, cypressConfigPath } = config;
 
 const executeCommand = async (command) => {
-  // TODO: Validate command string
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
@@ -81,7 +80,6 @@ const processRelease = async (release) => {
 export const main = async () => {
   try {
     const results = await Promise.all(releases.map(release => processRelease(release)));
-    // TODO: Process results if necessary
   } catch (error) {
     logger.error(`Error: ${error.message}`);
   }

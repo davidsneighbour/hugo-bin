@@ -9,7 +9,6 @@ import {
   text,
 } from '@clack/prompts';
 
-// @todo trying to find out how this really is supposed to work
 import { exec as exec } from 'node:child_process';
 import fs from 'node:fs';
 import toml from 'toml';
@@ -164,7 +163,6 @@ async function main() {
 
   }
 
-  // @todo check if content file already exists and fail gracefully
   spin.start('Creating content files...');
 
   await /** @type {Promise<void>} */(new Promise((resolve, _reject) => {
