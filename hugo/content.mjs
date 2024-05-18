@@ -128,6 +128,7 @@ async function main() {
       const itemContentOptions = config.contentOptions.find(
         (/** @type {{ value: any; }} */ option) => option.value === contentType
       );
+
       const {
         kind,
         path: contentPath,
@@ -152,8 +153,8 @@ async function main() {
       let postPath = contentPath.replace('${year}', year).replace('${slug}', slug);
 
       if (counter) {
-        const counter = incrementCounter(contentPath);
-        postPath = postPath.replace('${counter}', counter);
+        const counterInt = await incrementCounter(counter);
+        postPath = postPath.replace('${counter}', counterInt);
       }
 
       command = `hugo new --kind ${kind} ${postPath}`;
