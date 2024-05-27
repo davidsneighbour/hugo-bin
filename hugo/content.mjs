@@ -9,6 +9,9 @@ import {
   text,
 } from '@clack/prompts';
 
+// see https://github.com/unjs/consola
+import { consola, createConsola } from "consola";
+
 import { exec as exec } from 'node:child_process';
 import fs from 'node:fs';
 import toml from 'toml';
@@ -24,7 +27,7 @@ try {
   const configFile = fs.readFileSync(configPath, 'utf8');
   config = toml.parse(configFile);
 } catch (err) {
-  console.error(`Error reading TOML config file: ${err}`);
+  consola.error(`Error reading TOML config file: ${err}`);
   process.exit(0);
 }
 
@@ -53,7 +56,7 @@ async function incrementCounter(filename) {
       jsonData.latest = increment;
       fs.writeFile(filename, JSON.stringify(jsonData, null, 2), (err) => {
         if (err) {
-          console.error(err);
+          consola.error(err);
           reject(err);
           return;
         }
@@ -65,21 +68,21 @@ async function incrementCounter(filename) {
 
 // Function to handle file reading errors
 function handleFileReadError(err, filename) {
-  console.error(`Error reading file '${filename}': ${err}`);
+  consola.error(`Error reading file '${filename}': ${err}`);
   cancel(`An error occurred while reading file '${filename}': ${err}`);
   process.exit(0);
 }
 
 // Function to handle file write errors
 function handleFileWriteError(err, filename) {
-  console.error(`Error writing to file '${filename}': ${err}`);
+  consola.error(`Error writing to file '${filename}': ${err}`);
   cancel(`An error occurred while writing to file '${filename}': ${err}`);
   process.exit(0);
 }
 
 // Function to handle command execution errors
 function handleCommandExecutionError(err, command) {
-  console.error(`Error executing command '${command}': ${err}`);
+  consola.error(`Error executing command '${command}': ${err}`);
   cancel(`An error occurred while executing command '${command}': ${err}`);
   process.exit(0);
 }
@@ -169,12 +172,12 @@ async function main() {
   await /** @type {Promise<void>} */(new Promise((resolve, _reject) => {
     exec(command, function (error, _stdout, stderr) {
       if (error) {
-        console.log(error);
+        consola.error(error);
         cancel(`An error occured: ${error}`);
         process.exit(0);
       }
       if (stderr) {
-        console.log(stderr);
+        consola.error(stderr);
         cancel(`An error occured: ${stderr}`);
         process.exit(0);
       }
@@ -187,12 +190,12 @@ async function main() {
   await /** @type {Promise<void>} */(new Promise((resolve, _reject) => {
     exec(command2, function (error, _stdout, stderr) {
       if (error) {
-        console.log(error);
+        consola.error(error);
         cancel(`An error occured: ${error}`);
         process.exit(0);
       }
       if (stderr) {
-        console.log(stderr);
+        consola.error(stderr);
         cancel(`An error occured: ${stderr}`);
         process.exit(0);
       }
@@ -205,4 +208,4 @@ async function main() {
 
 }
 
-main().catch(console.error);
+main().catch(consola.error);

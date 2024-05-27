@@ -18,9 +18,14 @@
     },
     "homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
     "devDependencies": {
-        "@davidsneighbour/release-config": "2024.3.11",
-        "@davidsneighbour/netlify-plugin-hugo-helper": "^0.1.6",
-        "@davidsneighbour/prettier-config": "^2024.3.11"
+        "@davidsneighbour/netlify-plugin-hugo-helper": "0.1.6",
+        "@davidsneighbour/prettier-config": "2024.3.13",
+        "@davidsneighbour/release-config": "2024.3.13"
     },
-    "type": "module"
+    "type": "module",
+    "dependencies": {
+        "consola": "3.2.3"
+    }
 }
+
+
