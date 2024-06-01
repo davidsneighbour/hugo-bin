@@ -25,7 +25,7 @@ export async function loadFeed(feedLink) {
     const data = await parseStringPromise(cleanedXmlData);
     return data;
   } catch (error) {
-    console.error('Error loading feed:', error);
+    consola.error('Error loading feed:', error);
     throw error;
   }
 }
@@ -47,7 +47,7 @@ export async function downloadImage(imageUrl, localFilePath) {
     const fileStream = fs.createWriteStream(localFilePath);
     await pipeline(response.body, fileStream);
   } catch (error) {
-    console.error('Error downloading image:', error);
+    consola.error('Error downloading image:', error);
     throw error;
   }
 }
@@ -60,11 +60,11 @@ export async function downloadImage(imageUrl, localFilePath) {
 export const loadEnv = async () => {
   try {
     const envFileContent = await fsPromises.readFile('.env', 'utf8');
-    //console.log(envFileContent);
+    //consola.log(envFileContent);
     dotenvConfig({ path: '.env' });
-    //console.log(process.env);
+    //consola.log(process.env);
   } catch (error) {
-    console.error('Error loading .env file:', error);
+    consola.error('Error loading .env file:', error);
   }
 };
 

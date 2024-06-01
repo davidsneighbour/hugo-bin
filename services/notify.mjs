@@ -78,7 +78,7 @@ async function main() {
         break;
 
       default:
-        console.error('something weird happened');
+        consola.error('something weird happened');
         break;
 
     }
@@ -91,12 +91,12 @@ async function main() {
     // 		stderr
     // 	) {
     // 		if (error) {
-    // 			console.log(error);
+    // 			consola.log(error);
     // 			cancel(`An error occured: ${error}`);
     // 			process.exit(0);
     // 		}
     // 		if (stderr) {
-    // 			console.log(stderr);
+    // 			consola.log(stderr);
     // 			cancel(`An error occured: ${stderr}`);
     // 			process.exit(0);
     // 		}
@@ -112,4 +112,4 @@ async function main() {
 
 }
 
-main().catch(console.error);
+main().catch(consola.error);

@@ -1,5 +1,5 @@
-
-import { manageReleases } from './autoposter.utils.mjs'
+import { manageReleases } from '../../autoposter.utils.mjs';
+import { consola } from 'consola';
 
 async function run() {
   const config = {
@@ -11,11 +11,11 @@ async function run() {
   try {
     const releaseInfo = await manageReleases(config);
     if (releaseInfo) {
-      console.log(`Latest release: ${releaseInfo.tagName}`);
-      console.log(`Release URL: ${releaseInfo.htmlUrl}`);
+      consola.log(`Latest release: ${releaseInfo.tagName}`);
+      consola.log(`Release URL: ${releaseInfo.htmlUrl}`);
     }
   } catch (error) {
-    console.error('Error managing releases:', error);
+    consola.error('Error managing releases:', error);
   }
 }
 

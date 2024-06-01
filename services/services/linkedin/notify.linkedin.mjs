@@ -20,9 +20,9 @@ const main = async () => {
     );
     const postResponse = await postToLinkedIn(feed, profile, LINKEDIN_ACCESS_TOKEN);
 
-    console.log(postResponse);
+    consola.log(postResponse);
   } catch (error) {
-    console.error('Error:', error);
+    consola.error('Error:', error);
   }
 };
 

@@ -20,7 +20,7 @@ const main = async () => {
     });
     client.createPost(process.env.TUMBLR_BLOGID, preparePostObject(feed, localFileName));
   } catch (error) {
-    console.error('Error:', error);
+    consola.error('Error:', error);
   }
 };
 
@@ -47,7 +47,7 @@ main();
 //     const postObject = preparePostObject(feed, localFilePath);
 //     await client.createPost(process.env.TUMBLR_BLOGID, postObject);
 //   } catch (error) {
-//     console.error('Error posting to Tumblr:', error);
+//     consola.error('Error posting to Tumblr:', error);
 //     throw error;
 //   }
 // };
@@ -55,9 +55,9 @@ main();
 // const cleanup = async (localFilePath) => {
 //   try {
 //     await writeFileAsync(localFilePath, ''); // Clear the image file
-//     console.info(`Deleted file: ${localFilePath}`);
+//     consola.info(`Deleted file: ${localFilePath}`);
 //   } catch (error) {
-//     console.error('Error cleaning up:', error);
+//     consola.error('Error cleaning up:', error);
 //     throw error;
 //   }
 // };
@@ -98,7 +98,7 @@ main();
 // // const getFeed = async () => {
 // //   try {
 // //     const { FEED_LINK } = process.env;
-// //     //console.log(FEED_LINK);
+// //     //consola.log(FEED_LINK);
 // //     const response = await fetch(FEED_LINK);
 // //     if (!response.ok) {
 // //       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -109,7 +109,7 @@ main();
 // //     let data = await parseStringPromise(cleanedString);
 // //     return data;
 // //   } catch (error) {
-// //     console.error('Error:', error);
+// //     consola.error('Error:', error);
 // //     throw error;
 // //   }
 // // }
@@ -117,13 +117,13 @@ main();
 // // var localFileName = "";
 
 // // const getArticleImage = async (feed) => {
-// //   console.log(feed.rss.channel[0].item[0]['media:content'][0]['$']['url']);
+// //   consola.log(feed.rss.channel[0].item[0]['media:content'][0]['$']['url']);
 
 // //   return new Promise(async (onSuccess) => {
 // //     const imagePath = feed.rss.channel[0].item[0]['media:content'][0]['$']['url'];
 // //     https.get(imagePath, async (res) => {
 // //       localFileName = "image" + path.parse(imagePath).ext;
-// //       console.log(localFileName);
+// //       consola.log(localFileName);
 // //       const fileWriteStream = fs.createWriteStream(path.join("./bin/services/", localFileName), {
 // //         autoClose: true,
 // //         flags: "w",
@@ -148,9 +148,9 @@ main();
 
 // // const cleanup = async () => {
 // //   fs.unlink(path.join("./bin/services", localFileName), (err => {
-// //     if (err) console.log(err);
+// //     if (err) consola.log(err);
 // //     else {
-// //       console.info("\nDeleted file: " + localFileName);
+// //       consola.info("\nDeleted file: " + localFileName);
 // //     }
 // //   }))
 // // }

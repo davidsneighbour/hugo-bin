@@ -35,11 +35,11 @@ export async function postToTelegramChannel(botToken, channelId, message, imageU
     const data = await response.json();
 
     if (data.ok) {
-      console.log('Posted to Telegram successfully');
+      consola.log('Posted to Telegram successfully');
     } else {
-      console.error('Failed to post to Telegram:', data.description);
+      consola.error('Failed to post to Telegram:', data.description);
     }
   } catch (error) {
-    console.error('Error posting to Telegram:', error);
+    consola.error('Error posting to Telegram:', error);
   }
 }

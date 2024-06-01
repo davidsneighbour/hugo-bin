@@ -14,7 +14,7 @@ const main = async () => {
   try {
     await submitRedditPost(REDDIT_API_ID, REDDIT_SECRET, REDDIT_REFRESH_TOKEN, FEED_LINK);
   } catch (error) {
-    console.error('Error:', error);
+    consola.error('Error:', error);
   }
 };
 

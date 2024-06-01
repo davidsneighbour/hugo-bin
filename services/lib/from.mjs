@@ -1,7 +1,8 @@
 // MainScript.js
 
-import { fetchLatestItem as fetchFromGitHub } from './GitHubReleasesFetcher.js';
-import { fetchLatestItem as fetchFromRSS } from './RSSFeedFetcher.js';
+import { fetchLatestItem as fetchFromGitHub } from './from.github.mjs';
+import { fetchLatestItem as fetchFromRSS } from './from.rss.mjs';
+import { consola, createConsola } from "consola";
 
 async function run(config) {
   let fetchFunction;
@@ -11,20 +12,20 @@ async function run(config) {
   } else if (config.type === 'rss') {
     fetchFunction = fetchFromRSS;
   } else {
-    console.error('Invalid source type specified.');
+    consola.error('Invalid source type specified.');
     return;
   }
 
   try {
     const latestItem = await fetchFunction(config);
     if (latestItem) {
-      console.log(`Latest item: ${latestItem.title}`);
-      console.log(`URL: ${latestItem.url}`);
+      consola.log(`Latest item: ${latestItem.title}`);
+      consola.log(`URL: ${latestItem.url}`);
     } else {
-      console.log('No new items found.');
+      consola.log('No new items found.');
     }
   } catch (error) {
-    console.error('Error fetching latest item:', error);
+    consola.error('Error fetching latest item:', error);
   }
 }
 

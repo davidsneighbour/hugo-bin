@@ -12,7 +12,7 @@ const main = async () => {
 
     await postToTelegramChannel(botToken, channelId, message, imageUrl);
   } catch (error) {
-    console.error('Error:', error);
+    consola.error('Error:', error);
   }
 };
 

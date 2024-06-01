@@ -18,7 +18,7 @@ export const submitRedditPost = async (apiId, secret, refreshToken, feedLink) =>
     const result = await new Promise((resolve) => {
       parseString(data, (error, result) => {
         if (error) {
-          console.error('Error parsing RSS:', error);
+          consola.error('Error parsing RSS:', error);
           resolve(null);
         } else {
           resolve(result);
@@ -27,7 +27,7 @@ export const submitRedditPost = async (apiId, secret, refreshToken, feedLink) =>
     });
 
     if (!result) {
-      console.error('RSS parsing failed.');
+      consola.error('RSS parsing failed.');
       return;
     }
 
@@ -52,8 +52,8 @@ export const submitRedditPost = async (apiId, secret, refreshToken, feedLink) =>
     });
 
     await r.getSubreddit('davidsneighbour').submitSelfpost(post);
-    console.log('Reddit post submitted successfully.');
+    consola.log('Reddit post submitted successfully.');
   } catch (error) {
-    console.error('Error:', error);
+    consola.error('Error:', error);
   }
 };

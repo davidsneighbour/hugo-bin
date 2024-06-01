@@ -2,7 +2,7 @@ import https from 'https';
 import { readFile, writeFile, access } from 'fs/promises';
 import path from 'path';
 
-import { cacheFileExists, readCache, writeCache } from './cache.mjs';
+import { cacheFileExists, readCache, writeCache } from './lib/cache.mjs';
 
 // fetch the list of releases from GitHub
 export async function fetchReleases(url, userAgent) {
@@ -48,7 +48,7 @@ async function initializeCacheWithAllReleases({ repoUrl, cacheFilePath, userAgen
   const releases = await fetchReleases(repoUrl, userAgent);
   const releaseIDs = releases.map(release => release.id);
   await writeCache(cacheFilePath, releaseIDs);
-  console.log('Cache initialized with all release IDs.');
+  consola.log('Cache initialized with all release IDs.');
 }
 
 // manage the GitHub releases
@@ -57,7 +57,7 @@ export async function manageReleases({ repoUrl, cacheFilePath, userAgent }) {
 
   if (!exists) {
     await initializeCacheWithAllReleases({ repoUrl, cacheFilePath, userAgent });
-    console.log('Cache file did not exist and has been initialized. Run the script again to get the latest release.');
+    consola.log('Cache file did not exist and has been initialized. Run the script again to get the latest release.');
     return;
   }
 
@@ -66,16 +66,16 @@ export async function manageReleases({ repoUrl, cacheFilePath, userAgent }) {
   const newRelease = releases.find(release => !cachedIDs.includes(release.id));
 
   if (!newRelease) {
-    console.log('No new releases found.');
+    consola.log('No new releases found.');
     return null;
   }
 
-  console.log(`New release found: ${newRelease.tag_name}`);
-  console.log(`Release URL: ${newRelease.html_url}`);
+  consola.log(`New release found: ${newRelease.tag_name}`);
+  consola.log(`Release URL: ${newRelease.html_url}`);
 
   cachedIDs.push(newRelease.id);
   await writeCache(cacheFilePath, cachedIDs);
-  console.log('Cache updated successfully with the new release ID.');
+  consola.log('Cache updated successfully with the new release ID.');
 
   return { tagName: newRelease.tag_name, htmlUrl: newRelease.html_url };
 }

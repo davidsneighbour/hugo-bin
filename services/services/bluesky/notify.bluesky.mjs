@@ -17,7 +17,7 @@ const main = async () => {
     const fileContent = {
       "body": await createBlueSkyPost(feed.rss.channel[0].item[0]),
     };
-    console.log(fileContent);
+    consola.log(fileContent);
 
     const agent = new BskyAgent({
       service: "https://bsky.social/"
@@ -44,12 +44,12 @@ const main = async () => {
 
     // Upload the image to the server
     const testUpload = await agent.uploadBlob(imgBytes, { encoding: "image/webp" });
-    console.log("Upload successful, blob:", testUpload);
+    consola.log("Upload successful, blob:", testUpload);
 
     const mentions = parseMentions(rt.text);
     const urls = parseUrls(rt.text);
     const facets = mentions.concat(urls);
-    console.log(facets);
+    consola.log(facets);
 
     const postRecord = {
       $type: "app.bsky.feed.post",
@@ -60,12 +60,12 @@ const main = async () => {
       embed: await createBlueskyEmbed(feed.rss.channel[0].item[0], testUpload.data.blob),
     };
 
-    console.log(postRecord);
+    consola.log(postRecord);
 
     await agent.post(postRecord);
 
   } catch (error) {
-    console.error('Error:', error);
+    consola.error('Error:', error);
     process.exit();
   }
 };

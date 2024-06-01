@@ -1,6 +1,7 @@
 // RSSFeedFetcher.js
 
 import https from 'https';
+import { readCache, writeCache } from './src/cache.mjs';
 import { readFile, writeFile } from 'fs/promises';
 import xml2js from 'xml2js'; // You'll need to install xml2js: npm install xml2js
 
@@ -14,14 +15,6 @@ async function fetchRSSFeed(url) {
       reject(error);
     });
   });
-}
-
-async function readCache(filePath) {
-  // Same as in GitHubReleasesFetcher.js
-}
-
-async function writeCache(filePath, data) {
-  // Same as in GitHubReleasesFetcher.js
 }
 
 export async function fetchLatestItem(config) {

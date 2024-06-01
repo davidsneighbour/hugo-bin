@@ -14,7 +14,7 @@ const main = async () => {
     message += ` titled: [${feed.rss.channel[0].item[0].title[0]}](${feed.rss.channel[0].item[0].link[0]})`;
     sendMessage(MASTODON_ACCESS_TOKEN, message);
   } catch (error) {
-    console.error('Error:', error);
+    consola.error('Error:', error);
   }
 };
 
