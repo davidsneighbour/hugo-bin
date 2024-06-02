@@ -12,8 +12,7 @@ for TOOL in "${REQUIRED_TOOLS[@]}"; do
 done
 
 # build website
-npm run build:hugo
-npm run build:pagefind
+npm run build
 
 # cleaning up
 rm -f index.json

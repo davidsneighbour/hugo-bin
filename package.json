@@ -1,29 +1,37 @@
 {
-    "name": "@davidsneighbour/hugo-bin",
-    "version": "0.2024.32",
-    "description": "Bash scripts that are used across @davidsneighbour projects.",
-    "scripts": {
-        "release": "commit-and-tag-version --release-as patch -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main",
-        "release:major": "commit-and-tag-version --release-as major -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main",
-        "release:minor": "commit-and-tag-version --release-as minor -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/davidsneighbour/hugo-bin.git"
-    },
-    "author": "Patrick Kollitsch <patrick@davids-neighbour.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/davidsneighbour/hugo-bin/issues"
-    },
-    "homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
-    "devDependencies": {
-        "@davidsneighbour/netlify-plugin-hugo-helper": "0.1.6",
-        "@davidsneighbour/prettier-config": "2024.3.13",
-        "@davidsneighbour/release-config": "2024.3.13"
-    },
-    "type": "module",
-    "dependencies": {
-        "consola": "^3.2.3"
-    }
+  "name": "@davidsneighbour/hugo-bin",
+  "description": "Bash scripts that are used across @davidsneighbour projects.",
+  "version": "0.2024.32",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidsneighbour/hugo-bin.git"
+  },
+  "author": "Patrick Kollitsch <patrick@davids-neighbour.com>",
+  "bugs": {
+    "url": "https://github.com/davidsneighbour/hugo-bin/issues"
+  },
+  "homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
+  "dependencies": {
+    "@atproto/api": "0.12.15",
+    "@clack/prompts": "0.7.0",
+    "consola": "^3.2.3",
+    "dotenv": "16.4.5",
+    "winston": "3.13.0"
+  },
+  "devDependencies": {
+    "@davidsneighbour/netlify-plugin-hugo-helper": "0.1.6",
+    "@davidsneighbour/prettier-config": "2024.3.13",
+    "@davidsneighbour/release-config": "2024.3.13"
+  },
+  "scripts": {
+    "release": "commit-and-tag-version --release-as patch -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main",
+    "release:major": "commit-and-tag-version --release-as major -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main",
+    "release:minor": "commit-and-tag-version --release-as minor -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main"
+  },
+  "engines": {
+    "node": ">=20.12.0",
+    "npm": ">=10.5.0"
+  },
+  "type": "module"
 }

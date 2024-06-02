@@ -3,7 +3,7 @@ import cypress from 'cypress';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import config from './config.json' assert { type: 'json' };
+import config from './config.json' with { type: 'json' };
 import { createLogger, transports, format } from 'winston';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

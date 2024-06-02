@@ -48,8 +48,7 @@ VERSION=$(node -pe 'require("./package.json")["version"]')
 
 rm -rf public
 
-hugo
-npm run build:pagefind
+npm run build
 rm -f index.json
 rm -f links.json
 
