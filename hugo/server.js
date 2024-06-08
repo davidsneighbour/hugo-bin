@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { exec, spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
@@ -6,6 +8,7 @@ import dotenv from 'dotenv';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import readline from 'readline';
+import * as pagefind from "pagefind";
 
 // Helper functions
 function displayHelp() {
@@ -222,6 +225,30 @@ async function main() {
   hugoServer.on('exit', () => {
     console.log(`Elapsed: ${elapsedTime(Math.floor((Date.now() - startTime) / 1000))}`);
   });
+
+  /**
+   * Pagefind index for search functionality.
+   */
+  async function buildPagefindIndex() {
+    const { index } = await pagefind.createIndex({
+      rootSelector: "html",
+      verbose: true,
+      logfile: "debug.log"
+    });
+
+    if (index) {
+      await index.addDirectory({
+        path: "public"
+      });
+      await index.writeFiles({
+        outputPath: "public/search"
+      });
+    }
+  }
+
+  await buildPagefindIndex();
+
+
 }
 
 main().catch(error => {
