@@ -191,7 +191,8 @@ async function main() {
   const serverOptions = [];
   if (process.env.DNB_SERVER_DEBUG === 'true') {
     console.log('Debugging ON');
-    serverOptions.push('--printI18nWarnings', '--printPathWarnings', '--printUnusedTemplates', '--debug', '--verbose', '--logLevel', 'debug');
+    //serverOptions.push('--printI18nWarnings', '--printPathWarnings', '--printUnusedTemplates', '--debug', '--verbose',
+    serverOptions.push('--printI18nWarnings', '--printPathWarnings');
   } else {
     console.log('Debugging OFF');
   }
