@@ -1,7 +1,7 @@
 {
   "name": "@davidsneighbour/hugo-bin",
   "description": "Bash scripts that are used across @davidsneighbour projects.",
-  "version": "0.2024.34",
+  "version": "1.2023.1",
   "license": "MIT",
   "repository": {
     "type": "git",
