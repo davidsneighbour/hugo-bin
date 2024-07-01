@@ -23,7 +23,7 @@
   "devDependencies": {
     "@davidsneighbour/netlify-plugin-hugo-helper": "0.1.6",
     "@davidsneighbour/prettier-config": "2024.3.13",
-    "@davidsneighbour/release-config": "2024.3.13"
+    "@davidsneighbour/release-config": "2024.3.23"
   },
   "scripts": {
     "release": "commit-and-tag-version --release-as patch -a -t \"v\" --releaseCommitMessageFormat \"chore(release): v{{currentTag}}\" --sign && git push --follow-tags origin main",
